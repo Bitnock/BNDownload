@@ -42,7 +42,9 @@ BNDownload depends on AFNetworking
 	
 The `addOperation:` method could be a good place to do any sort of analytics on downloads. Also note that an `ABEpisodeDownload` is being added to the queue, not an `ABEpisode` itself. This is to remain consistent with `NSOperationQueue`.
 
-BNDownloadManager provides no means of persisting the operation queue between app launches. This is something you should add in your subclass; it's recommended that what you persist should reflect the original object you are downloading, not just the URL that eventually gets added to the NSOperationQueue.
+###### Persistence
+
+BNDownloadManager provides no means of persisting the operation queue between app launches. This is something you should add in your subclass; it's recommended that what you persist should reflect the original object you are downloading, not just the URL that eventually gets added to the NSOperationQueue. Eg store a list of episode IDs, not just their associated file URLs.
 
 ##### BNDownload
 
@@ -156,7 +158,7 @@ You will likely want to override that.
 
 The model you are downloading with your Manager and Download should implement the `BNDownloadable` protocol.
 
-The only interesting part here really is the `isDownloading` method. You just want to make sure you can reliable know the state of the download in the `NSOperationQueue`.
+The only interesting part here really is the `isDownloading` method. You just want to make sure you can reliably know the state of the download in the `NSOperationQueue`.
 
 In download: whether you allow an object to be downloaded multiple times is up to you.
 
