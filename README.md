@@ -171,7 +171,7 @@ The sender on download: and undownload: is an object you want to become an obser
 	}
 	
 	- (BOOL)isDownloaded {
-	  return !!self.file.localFileURI;
+	  return !!self.localFileURI;
 	}
 	
 	- (BOOL)isDownloading {
