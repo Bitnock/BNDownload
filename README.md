@@ -286,6 +286,13 @@ You may also want to consider wrapping this up in your Manager if you do it a lo
 ## That's it?
 
 Most other stuff that you may need is probably handled by the superclasses. Things like max. operations, prioritization, HTTP status codes, etc are all available from the superclasses.
+
+## What if
+
+**I want a single view that shows all my downloads?**
+
+In most cases such a view would be better served just making sure individual visual elements are observing their own downloads. If, for instance, you wanted a single progress bar that showed overall download progress, the easiest thing would be to add a property to the manager and observe that. The manager automatically observes all downloads it manages, so `observedDownloadDidProgress:` would be a good place to handle that.
+
 	
 ## Multiple downloads
 
