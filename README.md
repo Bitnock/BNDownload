@@ -284,3 +284,5 @@ You may also want to consider wrapping this up in your Manager if you do it a lo
 ## Multiple downloads
 
 If you have an app that downloads many type of items and you therefore have many download and manager subclasses, but need to monitor them in aggregate, you should write a abstraction layer that observes the operation queue for your various managers, and responds as needed. Such functionality is outside the scope of this library.
+
+It may be worth creating a primary subclass of BNDownloadManager if there are things that all your downloads share, such as an analytics hook when downloads move through their lifecycle.
