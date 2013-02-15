@@ -282,6 +282,10 @@ You may also want to consider wrapping this up in your Manager if you do it a lo
 	    [self.episode download:self];
 	  }
 	}
+
+## That's it?
+
+Most other stuff that you may need is probably handled by the superclasses. Things like max. operations, prioritization, HTTP status codes, etc are all available from the superclasses.
 	
 ## Multiple downloads
 
