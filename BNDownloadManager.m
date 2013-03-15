@@ -51,15 +51,15 @@ static BNDownloadManager* sharedManager;
   [download removeObserver:self];
 }
 
-- (IBAction)observedDownloadDidStart:(BNHTTPDownload*)download {
+- (void)observedDownloadDidStart:(BNHTTPDownload*)download {
   
 }
 
-- (IBAction)observedDownloadDidProgress:(BNHTTPDownload*)download {
+- (void)observedDownloadDidProgress:(BNHTTPDownload*)download {
   
 }
 
-- (IBAction)observedDownloadDidEnd:(BNHTTPDownload*)download {
+- (void)observedDownloadDidEnd:(BNHTTPDownload*)download {
   
 }
 
