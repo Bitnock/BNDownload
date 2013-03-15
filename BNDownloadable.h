@@ -11,7 +11,11 @@
 
 @protocol BNDownloadable <NSObject>
 
+@required
+
 @property (nonatomic, strong, readonly) NSURL* downloadURL;
+
+@optional
 
 @property (nonatomic, readonly) BOOL isDownloaded;
 @property (nonatomic, readonly) BOOL isDownloading;

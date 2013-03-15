@@ -18,6 +18,8 @@
 - (void)registerAsObserverForDownload:(BNHTTPDownload*)download;
 - (void)unregisterAsObserverForDownload:(BNHTTPDownload*)download;
 
+@optional
+
 - (IBAction)observedDownloadDidStart:(BNHTTPDownload*)download;
 - (IBAction)observedDownloadDidProgress:(BNHTTPDownload*)download;
 - (IBAction)observedDownloadDidEnd:(BNHTTPDownload*)download;

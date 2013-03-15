@@ -152,17 +152,17 @@
 
 - (void)addObserver:(id<BNDownloadObserver>)observer {
   if (observer && ![self isBeingObservedBy:observer]) {
-    NSMutableSet* mObservers = [NSMutableSet setWithSet:self.observers];
+    NSMutableSet* mObservers = self.observers.mutableCopy;
     [mObservers addObject:observer];
-    self.observers = [NSSet setWithSet:mObservers];
+    self.observers = mObservers.copy;
   }
 }
 
 - (void)removeObserver:(id<BNDownloadObserver>)observer {
   if (observer) {
-    NSMutableSet* mObservers = [NSMutableSet setWithSet:self.observers];
+    NSMutableSet* mObservers = self.observers.mutableCopy;
     [mObservers removeObject:observer];
-    self.observers = [NSSet setWithSet:mObservers];
+    self.observers = mObservers.copy;
   }
 }
 
@@ -170,19 +170,25 @@
 
 - (void)messageObserversForOperationStart {
   for (id<BNDownloadObserver> observer in self.observers.allObjects) {
-    [observer observedDownloadDidStart:self];
+    if ([observer respondsToSelector:@selector(observedDownloadDidStart:)]) {
+      [observer observedDownloadDidStart:self];
+    }
   }
 }
 
 - (void)messageObserversForOperationProgress {
   for (id<BNDownloadObserver> observer in self.observers.allObjects) {
-    [observer observedDownloadDidProgress:self];
+    if ([observer respondsToSelector:@selector(observedDownloadDidProgress:)]) {
+      [observer observedDownloadDidProgress:self];
+    }
   }
 }
 
 - (void)messageObserversForOperationEnd {
   for (id<BNDownloadObserver> observer in self.observers.allObjects) {
-    [observer observedDownloadDidEnd:self];
+    if ([observer respondsToSelector:@selector(observedDownloadDidEnd:)]) {
+      [observer observedDownloadDidEnd:self];
+    }
   }
 }
 
