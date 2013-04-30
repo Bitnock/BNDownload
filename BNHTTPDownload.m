@@ -2,8 +2,26 @@
 //  BNDownload.m
 //  BNDownload
 //
-//  Created by Christopher Kalafarski on 1/6/13.
-//  Copyright (c) 2013 Bitnock. All rights reserved.
+//  Created by Christopher Kalafarski on 1/6/2013.
+//  Copyright (c) 2013 Bitnock.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 //
 
 #import "BNHTTPDownload_private.h"
@@ -35,17 +53,17 @@
 #pragma mark - Setup
 
 - (id)initWithURL:(NSURL*)url progress:(void (^)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead))progress success:(void (^)(AFHTTPRequestOperation* operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation* operation, NSError* error))failure {
-  
+
   self.request = [NSURLRequest requestWithURL:url];
-  
+
   self = [super initWithRequest:self.request];
   if (self) {
     __weak BNHTTPDownload* this = self;
-    
+
     [self setShouldExecuteAsBackgroundTaskWithExpirationHandler:nil];
-    
+
     self.outputStream = [NSOutputStream outputStreamToFileAtPath:self.outputStreamPath append:NO];
-    
+
     [self setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
       [this didSucceed:responseObject];
       if (success) success(operation, responseObject);
@@ -53,7 +71,7 @@
       [this didFail:error];
       if (failure) failure(operation, error);
     }];
-    
+
     [self setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
       [this didProgress:bytesRead total:totalBytesRead expected:totalBytesExpectedToRead];
       if (progress) progress(bytesRead, totalBytesRead, totalBytesExpectedToRead);
@@ -68,7 +86,7 @@
 
 - (NSString*)outputStreamPath {
   NSString* urlString = self.request.URL.absoluteString;
-  
+
   const char* ptr = [urlString UTF8String];
   unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
   CC_MD5(ptr, strlen(ptr), md5Buffer);
@@ -110,7 +128,7 @@
 - (void)didProgress:(NSUInteger)bytesRead total:(long long)totalBytesRead expected:(long long)totalBytesExpectedToRead {
   _totalBytesRead = totalBytesRead;
   _totalBytesExpectedToRead = totalBytesExpectedToRead;
-  
+
   [self messageObserversForOperationProgress];
 }
 
@@ -124,13 +142,13 @@
 - (void)didSucceed:(id)responseObject {
   _totalBytesExpectedToRead = _totalBytesRead;
   NSLog(@"Download completed: %lld bytes", _totalBytesRead);
-  
+
   if ([NSFileManager.defaultManager fileExistsAtPath:self.outputStreamPath]) {
     NSLog(@"Moving file into place...");
     NSError* err;
     [NSFileManager.defaultManager moveItemAtPath:self.outputStreamPath toPath:self.destinationPath error:&err];
   }
-  
+
   [self didEnd];
 }
 
