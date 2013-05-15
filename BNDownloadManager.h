@@ -30,6 +30,8 @@
 
 @class BNHTTPDownload;
 
+extern NSString * const BNDownloadManagerOperationCountContext;
+
 @interface BNDownloadManager : NSOperationQueue <BNDownloadObserver>
 
 + (BNDownloadManager*)sharedManager;

@@ -28,6 +28,8 @@
 
 #import "BNHTTPDownload.h"
 
+NSString * const BNDownloadManagerOperationCountContext = @"BNDownloadManagerOperationCountContext";
+
 @implementation BNDownloadManager
 
 static BNDownloadManager* sharedManager;
