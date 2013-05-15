@@ -60,6 +60,8 @@
   if (self) {
     __weak BNHTTPDownload* this = self;
 
+    self.observers = NSArray.array;
+    
     [self setShouldExecuteAsBackgroundTaskWithExpirationHandler:nil];
 
     self.outputStream = [NSOutputStream outputStreamToFileAtPath:self.outputStreamPath append:NO];
@@ -128,7 +130,7 @@
 - (void)didProgress:(NSUInteger)bytesRead total:(long long)totalBytesRead expected:(long long)totalBytesExpectedToRead {
   _totalBytesRead = totalBytesRead;
   _totalBytesExpectedToRead = totalBytesExpectedToRead;
-
+  
   [self messageObserversForOperationProgress];
 }
 
