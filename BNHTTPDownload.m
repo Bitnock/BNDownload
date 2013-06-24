@@ -60,7 +60,7 @@
   if (self) {
     __weak BNHTTPDownload* this = self;
 
-    self.observers = NSArray.array;
+    self.observers = NSSet.set;
     
     [self setShouldExecuteAsBackgroundTaskWithExpirationHandler:nil];
 
